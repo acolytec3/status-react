@@ -31,6 +31,11 @@
   (clear-web-data)
   (.saveAccountAndLogin (status) multiaccount-data password config accounts-data))
 
+(defn save-account-and-login-with-keycard
+  [multiaccount-data password config chat-key]
+  (clear-web-data)
+  (.saveAccountAndLoginWithKeycard (status) multiaccount-data password config chat-key))
+
 (defn login
   [account-data password]
   (clear-web-data)
@@ -130,9 +135,9 @@
 (defn verify [address password on-result]
   (.verify (status) address password on-result))
 
-(defn login-with-keycard [whisper-private-key encryption-public-key on-result]
+(defn login-with-keycard [multiaccount-data password chat-key]
   (clear-web-data)
-  (.loginWithKeycard (status) whisper-private-key encryption-public-key on-result))
+  (.loginWithKeycard (status) multiaccount-data password chat-key))
 
 (defn set-soft-input-mode [mode]
   (when (status)

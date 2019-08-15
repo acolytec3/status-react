@@ -16,6 +16,10 @@
   [multiaccount-data password config accounts-data]
   (native-module/save-account-and-login multiaccount-data password config accounts-data))
 
+(defn save-account-and-login-with-keycard
+  [multiaccount-data password config chat-key]
+  (native-module/save-account-and-login-with-keycard multiaccount-data password config chat-key))
+
 (defn login
   [account-data password]
   (native-module/login account-data password))
@@ -54,8 +58,8 @@
   (native-module/verify address password callback))
 
 (defn login-with-keycard
-  [{:keys [whisper-private-key encryption-public-key on-result]}]
-  (native-module/login-with-keycard whisper-private-key encryption-public-key on-result))
+  [{:keys [multiaccount-data password chat-key]}]
+  (native-module/login-with-keycard multiaccount-data password chat-key))
 
 (defn set-soft-input-mode [mode]
   (native-module/set-soft-input-mode mode))

@@ -38,6 +38,8 @@
 (def react-native-screens   (js/require "react-native-screens"))
 (def mail-class             (js/require  "react-native-mail"))
 (def react-native-mail      (.-default mail-class))
+(def async-storage          (.-AsyncStorage react-native))
+(def back-handler           (.-BackHandler react-native))
 (def desktop-linking        #js {:addEventListener (fn [])})
 (def desktop-menu           #js {:addEventListener (fn [])})
 (def desktop-config         #js {:addEventListener (fn [])})
