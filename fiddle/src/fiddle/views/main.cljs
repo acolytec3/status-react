@@ -20,6 +20,7 @@
       [btn :icons "Icons" view-id]
       [btn :typography "Typography" view-id]
       [btn :list-items "List items" view-id]
+      [btn :ui "UI elements" view-id]
       [btn :screens "Screens" view-id]]
      (when view
        [view])]))

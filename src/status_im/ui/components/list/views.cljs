@@ -29,7 +29,8 @@
             [status-im.ui.components.list.styles :as styles]
             [status-im.ui.components.react :as react]
             [status-im.ui.screens.home.animations.responder :as responder]
-            [status-im.utils.platform :as platform])
+            [status-im.utils.platform :as platform]
+            [status-im.ui.components.radio :as radio])
   (:require-macros [status-im.utils.views :as views]))
 
 (def flat-list-class (react/get-class "FlatList"))
@@ -107,7 +108,7 @@
   [react/touchable-highlight {:on-press #(on-value-change (not checked?))}
    (conj item
          [react/view {:style (merge style styles/item-checkbox)}
-          [checkbox/radio-button props]])])
+          [radio/radio (:checked? props)]])])
 
 (def item-icon-forward
   [item-icon {:icon      :main-icons/next

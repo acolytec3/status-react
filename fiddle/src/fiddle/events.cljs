@@ -5,6 +5,7 @@
             [fiddle.views.typography :as typography]
             [fiddle.views.icons :as icons]
             [fiddle.views.list-items :as list-items]
+            [fiddle.views.ui :as ui]
             [cljs.reader :as reader]))
 
 (re-frame/reg-event-fx
@@ -15,7 +16,8 @@
                    :icons icons/icons
                    :screens screens/screens
                    :typography typography/typography
-                   :list-items list-items/list-items}}}))
+                   :list-items list-items/list-items
+                   :ui ui/ui}}}))
 
 (re-frame/reg-fx
  :load-icons-fx
