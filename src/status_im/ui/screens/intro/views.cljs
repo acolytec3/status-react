@@ -29,13 +29,13 @@
       ^{:key i}
       [react/view {:style (styles/dot color (selected i))}]))])
 
-(defn intro-viewer [slides window-width]
-  (let [margin 24
-        view-width  (- window-width (* 2 margin))
-        scroll-x (r/atom 0)
+(defn intro-viewer [slides window-width window-height]
+  (let [scroll-x (r/atom 0)
+        margin    32
         scroll-view-ref (atom nil)]
     (fn []
       [react/view {:style {:align-items :center
+                           :flex 1
                            :justify-content :flex-end}}
        [react/scroll-view {:horizontal true
                            :paging-enabled true
@@ -50,11 +50,15 @@
         (for [s slides]
           ^{:key (:title s)}
           [react/view {:style {:width window-width
+                               :flex 1
+                               :justify-content :flex-end
                                :padding-horizontal 32}}
-           [react/view {:style styles/intro-logo-container}
-            [components.common/image-contain
-             {:container-style {}}
-             {:image (:image s) :width view-width  :height view-width}]]
+           [react/view {:style {:justify-content :center
+                                :margin-vertical 16}}
+            [react/image {:source (:image s)
+                          :resize-mode :contain
+                          :style {:width (- window-width (* 2 margin))
+                                  :height (- window-height 350 (* 2 margin))}}]]
            [react/i18n-text {:style styles/wizard-title :key (:title s)}]
            [react/i18n-text {:style styles/wizard-text
                              :key   (:text s)}]])]
@@ -63,7 +67,7 @@
                          :color colors/blue}])])))
 
 (defview intro []
-  (letsubs [window-width [:dimensions/window-width]]
+  (letsubs [{window-width :width window-height :height} [:dimensions/window]]
     [react/view {:style styles/intro-view}
      [status-bar/status-bar {:flat? true}]
      [intro-viewer [{:image (:intro1 resources/ui)
@@ -74,7 +78,7 @@
                      :text :intro-text2}
                     {:image (:intro3 resources/ui)
                      :title :intro-title3
-                     :text :intro-text3}] window-width]
+                     :text :intro-text3}] window-width window-height]
      [react/view styles/buttons-container
       [components.common/button {:button-style (assoc styles/bottom-button :margin-bottom 16)
                                  :on-press     #(re-frame/dispatch [:multiaccounts.create.ui/intro-wizard true])
