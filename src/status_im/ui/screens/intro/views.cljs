@@ -94,11 +94,18 @@
          :on-press privacy-policy/open-privacy-policy-link!}
         (i18n/label :t/intro-privacy-policy-note2)]]]]))
 
-(defn generate-key []
-  [components.common/image-contain
-   {:container-style {:margin-horizontal 80}}
-   {:image (resources/get-image :sample-key)
-    :width 154 :height 140}])
+(defn generate-key [view-height]
+  (let [image-height 140
+        image-width 154
+        image-container-height (- view-height 328)]
+    [react/view {:style {:margin-horizontal 80
+                         :align-items :center
+                         :justify-content :flex-start
+                         :flex 1
+                         :margin-top    (/ (- image-container-height image-height) 2)}}
+     [react/image {:source (resources/get-image :sample-key)
+                   :resize-mode :contain
+                   :style {:width image-width :height image-height}}]]))
 
 (defn choose-key [{:keys [multiaccounts selected-id] :as wizard-state} view-height]
   [react/scroll-view {:content-container-style {:flex 1
@@ -144,7 +151,7 @@
       {:on-press #(re-frame/dispatch [:intro-wizard/on-key-storage-selected (if config/hardwallet-enabled? type :default)])}
       [react/view (assoc (styles/list-item selected?)
                          :align-items :flex-start
-                         :padding-top 20
+                         :padding-top 16
                          :padding-bottom 12)
        (if image
          [react/image
@@ -178,7 +185,7 @@
                          :justify-content :flex-end
                          ;; We have to align top storage entry
                          ;; with top multiaccount entry on the previous screen
-                         :margin-bottom (+ (- 300 232) (if (< view-height 600)
+                         :margin-bottom (+ (- 322 226) (if (< view-height 600)
                                                          -20
                                                          (/ view-height 12)))}}
      [storage-entry (first storage-types) selected-storage-type]
@@ -257,11 +264,13 @@
 
          :else
          [react/view {:style styles/bottom-arrow}
-          [components.common/bottom-button {:on-press     #(re-frame/dispatch
-                                                            [:intro-wizard/step-forward-pressed])
-                                            :disabled? (or processing?
-                                                           (and (= step :create-code) weak-password?))
-                                            :forward? true}]])
+          [react/view {:style {:margin-right 20}}
+           [components.common/bottom-button {:on-press     #(re-frame/dispatch
+                                                             [:intro-wizard/step-forward-pressed])
+                                             :style {:margin-right 20}
+                                             :disabled? (or processing?
+                                                            (and (= step :create-code) weak-password?))
+                                             :forward? true}]]])
    (when (#{:enable-fingerprint :enable-notifications} step)
      [components.common/button {:button-style (assoc styles/bottom-button :margin-top 20)
                                 :label (i18n/label :t/maybe-later)
@@ -313,7 +322,7 @@
                           :justify-content :space-between}}
       [top-bar wizard-state]
       (case step
-        :generate-key [generate-key]
+        :generate-key [generate-key view-height]
         :choose-key [choose-key wizard-state view-height]
         :select-key-storage [select-key-storage wizard-state view-height]
         :create-code [create-code wizard-state view-width]

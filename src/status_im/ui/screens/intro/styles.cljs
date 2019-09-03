@@ -58,7 +58,7 @@
    :padding-left     16
    :padding-right    10
    :background-color (if selected? colors/blue-light colors/white)
-   :padding-vertical 10})
+   :padding-vertical 12})
 
 (def multiaccount-image
   {:width         40
@@ -101,5 +101,4 @@
    :align-self       :stretch
    :padding-top      16
    :border-top-width 1
-   :border-top-color colors/gray-lighter
-   :margin-right     20})
+   :border-top-color colors/gray-lighter})
