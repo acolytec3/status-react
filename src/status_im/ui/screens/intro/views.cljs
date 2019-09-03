@@ -33,11 +33,9 @@
   (let [margin 24
         view-width  (- window-width (* 2 margin))
         scroll-x (r/atom 0)
-        scroll-view-ref (atom nil)
-        max-width (* view-width (dec (count slides)))]
+        scroll-view-ref (atom nil)]
     (fn []
-      [react/view {:style {:margin-horizontal 32
-                           :align-items :center
+      [react/view {:style {:align-items :center
                            :justify-content :flex-end}}
        [react/scroll-view {:horizontal true
                            :paging-enabled true
@@ -47,12 +45,12 @@
                            :pinch-gesture-enabled false
                            :on-scroll #(let [x (.-nativeEvent.contentOffset.x %)]
                                          (reset! scroll-x x))
-                           :style {:width view-width
-                                   :margin-vertical 32}}
+                           :style {:width window-width
+                                   :margin-bottom 32}}
         (for [s slides]
           ^{:key (:title s)}
-          [react/view {:style {:width view-width
-                               :padding-horizontal 16}}
+          [react/view {:style {:width window-width
+                               :padding-horizontal 32}}
            [react/view {:style styles/intro-logo-container}
             [components.common/image-contain
              {:container-style {}}
@@ -60,7 +58,7 @@
            [react/i18n-text {:style styles/wizard-title :key (:title s)}]
            [react/i18n-text {:style styles/wizard-text
                              :key   (:text s)}]])]
-       (let [selected (hash-set (/ @scroll-x view-width))]
+       (let [selected (hash-set (quot @scroll-x window-width))]
          [dots-selector {:selected selected :n (count slides)
                          :color colors/blue}])])))
 

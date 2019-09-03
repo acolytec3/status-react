@@ -5,7 +5,6 @@
 (def intro-view
   {:flex               1
    :justify-content    :flex-end
-   :padding-horizontal 30
    :margin-bottom      12})
 
 (def intro-logo-container
@@ -82,8 +81,9 @@
    :width      width})
 
 (def buttons-container
-  {:align-items :center
-   :margin-top  32})
+  {:align-items        :center
+   :padding-horizontal 32
+   :margin-top         32})
 
 (def bottom-button
   {:padding-horizontal 24
