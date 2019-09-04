@@ -237,7 +237,7 @@ DEPENDENCIES:
   - RNKeychain (from `../node_modules/react-native-keychain`)
   - RNLanguages (from `../node_modules/react-native-languages`)
   - RNScreens (from `../node_modules/react-native-screens`)
-  - RNSecureRandom (from `../node_modules/react-native-securerandom/ios`)
+  - RNSecureRandom (from `../node_modules/react-native-securerandom`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - TouchID (from `../node_modules/react-native-touch-id`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
