@@ -26,12 +26,12 @@
 
 (fx/defn handle-network-info-change
   {:events [::network-info-changed]}
-  [{:keys [db] :as cofx} {:keys [is-connected type details] :as state}]
+  [{:keys [db] :as cofx} {:keys [isConnected type details] :as state}]
   (let [old-network-status (:network-status db)
         old-network-type (:network/type db)]
     (fx/merge cofx
-              (when-not (= is-connected old-network-status)
-                (change-network-status is-connected))
+              (when-not (= isConnected old-network-status)
+                (change-network-status isConnected))
               (when-not (= type old-network-type)
                 (change-network-type old-network-type type (:is-connection-expensive details))))))
 
