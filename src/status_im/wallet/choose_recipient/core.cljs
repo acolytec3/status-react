@@ -139,7 +139,7 @@
   {:events [:wallet.send/resolve-ens-addresses :wallet.send/qr-code-request-scanned]}
   [{{:networks/keys [current-network] :wallet/keys [all-tokens] :as db} :db}
    uri origin]
-  (when-let [message (eip681/parse-uri uri)]
+  (if-let [message (eip681/parse-uri uri)]
   ;; first we get a vector of ens-names to resolve and a vector of paths of
   ;; these names
     (let [{:keys [paths ens-names]}
@@ -168,4 +168,7 @@
                         (assoc-in message path address))
                       message
                       (map vector paths addresses))
-              origin]))}}))))
+              origin]))}}))
+    (-> {:db db}
+        (assoc :ui/show-error (i18n/label :t/wallet-invalid-address {:data uri}))
+        (assoc :dispatch [:navigate-back]))))
