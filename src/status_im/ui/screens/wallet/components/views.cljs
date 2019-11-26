@@ -6,6 +6,12 @@
             [status-im.ui.components.react :as react]
             [status-im.ui.components.styles :as components.styles]
             [status-im.ui.components.toolbar.view :as topbar]
+            [status-im.ui.components.tooltip.views :as tooltip]
+            [status-im.ui.screens.chat.photos :as photos]
+            [status-im.ui.screens.wallet.choose-recipient.views
+             :as
+             choose-recipient]
+            [status-im.ethereum.ens :as ens]
             [status-im.ui.screens.wallet.components.styles :as styles]
             [status-im.ui.components.text-input.view :as text-input]
             [status-im.ui.components.colors :as colors])
