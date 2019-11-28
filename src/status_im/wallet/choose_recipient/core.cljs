@@ -135,14 +135,6 @@
       (assoc :ui/show-error (i18n/label :t/wallet-invalid-chain-id
                                         {:data data :chain current-chain-id})))))
 
-(fx/defn qr-scanner-result
-  {:events [:wallet.send/qr-scanner-result]}
-  [{db :db :as cofx} data opts]
-  (fx/merge cofx
-            {:db (assoc-in db [:wallet/prepare-transaction :modal-opened?] false)}
-            (navigation/navigate-back)
-            (request-uri-parsed data :qr)))
-
 (fx/defn qr-scanner-cancel
   {:events [:wallet.send/qr-scanner-cancel]}
   [{db :db} _]
@@ -186,3 +178,10 @@
       true (assoc :ui/show-error (i18n/label :t/wallet-invalid-address {:data uri}))
       (= origin :qr) (assoc :dispatch [:navigate-back]))))
 
+(fx/defn qr-scanner-result
+  {:events [:wallet.send/qr-scanner-result]}
+  [{db :db :as cofx} data opts]
+  (fx/merge cofx
+            {:db (assoc-in db [:wallet/prepare-transaction :modal-opened?] false)}
+            (navigation/navigate-back)
+            (resolve-ens-addresses data :qr)))
